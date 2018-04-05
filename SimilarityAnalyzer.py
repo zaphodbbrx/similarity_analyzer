@@ -34,7 +34,7 @@ class SimilarityAnalyzer():
     def __init__(self):
         self.__langs = ['en', 'de', 'ru','cn', 'jp', 'es']
 
-    def lang_detect(self, text, threshold = 0.9):
+    def lang_detect(self, text, threshold = 0.7):
         detector = Detector(text,quiet = True)
         if detector.language.confidence>threshold:
             return detector.language.code
@@ -66,7 +66,7 @@ class SimilarityAnalyzer():
         vec1 = get_doc_vector(doc1)
         vec2 = get_doc_vector(doc2)
         res = np.linalg.norm(vec1-vec2)
-        return res
+        return {'lang': lang, 'similarity': res}
     
     def ShowSimilarWords(self, word, lang = None):
         def get_pos_tags(words):
